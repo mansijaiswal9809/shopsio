@@ -5,9 +5,9 @@ const Product = () => {
  const {Category}= UseProductContext()
 //  console.log(Category)
   return (
-    <div style={{display:'grid', gridTemplateColumns:"repeat(3, 1fr)"}}>
+    <div style={{display:'grid', gridTemplateColumns:"repeat(3, 1fr)", width:"70vw"}}>
       {Category.map((Product)=>{
-        return <ProductCard key={Product.id} {...Product} style={{display:'flex', justifyContent:"center"}}/>
+        return <ProductCard key={Product.id} {...Product}/>
       })}
     </div>
   )
