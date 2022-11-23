@@ -1,29 +1,6 @@
 import React from "react";
 import { GiCompass, GiDiamondHard, GiStabbedNote } from "react-icons/gi";
 
-export const links = [
-  {
-    id: 1,
-    text: "All",
-    // fn: getAll
-  },
-  {
-    id: 2,
-    text: "Men",
-    // fn:getMen
-  },
-  {
-    id: 3,
-    text: "Women",
-    // fn: getWomen
-  },
-  { 
-    id: 4, 
-    text: "Home",
-    // fn: getHome
-  },
-];
-
 export const services = [
   {
     id: 1,
@@ -44,3 +21,9 @@ export const services = [
     text: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates, ea. Perferendis corrupti reiciendis nesciunt rerum velit autem unde numquam nisi",
   },
 ];
+
+export const uniqueValue=(arr,prop)=>{
+let newArr= arr.map((item)=>item[prop])
+newArr=newArr.flat()
+return ['all',...new Set(newArr)]
+}

@@ -6,16 +6,17 @@ import reportWebVitals from "./reportWebVitals";
 import { ChakraProvider } from "@chakra-ui/react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ProductProvider } from "./context/ProductContext";
+import { FilterProvider } from "./context/filterContext";
 // import { CategoryProductProvider } from "./context/categoryProductContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <ProductProvider>
-    {/* <CategoryProductProvider> */}
+    <FilterProvider>
       <ChakraProvider>
         <App />
       </ChakraProvider>
-    {/* </CategoryProductProvider> */}
+    </FilterProvider>
   </ProductProvider>
 );
 

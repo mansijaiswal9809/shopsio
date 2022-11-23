@@ -1,14 +1,19 @@
 import React from 'react'
+import Filter from '../component/Filter'
 import ProductCard from '../component/ProductCard'
-import { UseProductContext } from '../context/ProductContext'
+import { useFilterContext } from '../context/filterContext'
+// import { UseProductContext } from '../context/ProductContext'
 const Product = () => {
- const {Category}= UseProductContext()
-//  console.log(Category)
+ const {filteredProduct, filter: { minPrice, maxPrice, price }}= useFilterContext()
+//  console.log(filteredProduct)
   return (
+    <div style={{display:"flex"}}>
+      <Filter minPrice={minPrice} maxPrice={maxPrice} price={price} />
     <div style={{display:'grid', gridTemplateColumns:"repeat(3, 1fr)", width:"70vw"}}>
-      {Category.map((Product)=>{
+      {filteredProduct.map((Product)=>{
         return <ProductCard key={Product.id} {...Product}/>
       })}
+    </div>
     </div>
   )
 }
