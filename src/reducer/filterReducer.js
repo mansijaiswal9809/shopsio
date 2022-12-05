@@ -1,16 +1,12 @@
-import { UseProductContext } from "../context/ProductContext";
-
 const filterReducer = (state, action) => {
-  const { Category } = UseProductContext();
-//   console.log(Category)
   if (action.type === "Load_PRODUCTS") {
-    let maxPrice = Category.map((item) => item.price);
-    maxPrice = Math.max(...maxPrice);
+    let maxPriceArr = action.payload.map((item) => item.price);
+    let maxPrice = Math.max(...maxPriceArr);
     return {
       ...state,
-      maxPrice: maxPrice,
-      price: maxPrice,
-      filteredProduct: [...Category],
+
+      filter: { ...state.filter, maxPrice: maxPrice, price: maxPrice },
+      filteredProduct: action.payload,
     };
   }
   if (action.type === "sort") {
@@ -36,22 +32,38 @@ const filterReducer = (state, action) => {
     }
     return { ...state, filteredProduct: [...temp] };
   }
-  if(action.type==="UPDATE_FILTERS"){
-    const { name, value } = action.payload
-    return { ...state, filter: { ...state.filter, [name]: value }}
+  if (action.type === "UPDATE_FILTERS") {
+    const { name, value } = action.payload;
+    return { ...state, filter: { ...state.filter, [name]: value } };
   }
   if (action.type === "filter") {
-    const {brand, color, price} = state.filter
-    let temp=[...Category]
-    if(brand!=="all"){
-        temp= temp.filter((item)=>item.brand===brand)
+    const { brand, color, price } = state.filter;
+    let temp = [...action.payload];
+    if (brand !== "all") {
+      temp = temp.filter((item) => item.brand === brand);
     }
-    if(color!=="all"){
-        temp=temp.filter((item)=>item.colors.includes(color))
+    if (color !== "all") {
+      temp = temp.filter((item) => item.colors.includes(color));
+      // console.log(temp)
     }
-    temp=temp.filter((item)=>item.price<=price)
-    return {...state, filteredProduct:temp}
+    temp = temp.filter((item) => item.price <= price);
+    return { ...state, filteredProduct: temp };
   }
+  if (action.type === "CLEAR_FILTERS") {
+    let maxPriceArr = action.payload.map((item) => item.price);
+    let maxPrice = Math.max(...maxPriceArr);
+    return {
+      ...state,
+      filter: {
+        brand: "all",
+        color: "all",
+        minPrice: 0,
+        maxPrice: maxPrice,
+        price: maxPrice,
+      },
+    };
+  }
+  return state;
 };
 
 export default filterReducer;

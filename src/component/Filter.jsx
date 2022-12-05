@@ -2,20 +2,21 @@ import React from "react";
 import { useFilterContext } from "../context/filterContext";
 import { UseProductContext } from "../context/ProductContext";
 import { uniqueValue } from "../utils/constant";
-const Filter = ({minPrice, maxPrice, price}) => {
+const Filter = ({minPrice,maxPrice,price}) => {
   const { Category } = UseProductContext();
+  const{sort, clearFilters,
+  updateFilter,
+  updateSort}= useFilterContext()
   // console.log(Category)
-  const {
-    clearFilters,
-    updateFilter,
-    updateSort,
-  } = useFilterContext();
+
+  // console.log(minPrice, maxPrice, price)
+
   const brands = uniqueValue(Category, "brand");
   const colors = uniqueValue(Category, "colors");
   //   console.log(colors);
   return (
     <div>
-      <select name="sort" id="sort" onChange={updateSort}>
+      <select name="sort" id="sort" value={sort} onChange={updateSort}>
         <option value="lowToHigh">Price-Low to High</option>
         <option value="highToLow">Price-High to Low</option>
         <option value="A-Z">A-Z</option>
@@ -25,7 +26,7 @@ const Filter = ({minPrice, maxPrice, price}) => {
         {/* <button>all</button> */}
         <div>Select Your preferred brand</div>
         {brands.map((brand, ind) => (
-          <button key={ind} name="brand" onClick={updateFilter}>
+          <button key={ind} name="brand"  onClick={updateFilter}>
             {brand}
           </button>
         ))}
@@ -40,9 +41,9 @@ const Filter = ({minPrice, maxPrice, price}) => {
                   name="color"
                   onClick={updateFilter}
                   key={ind}
-                  data-color="All"
+                  data-color="all"
                 >
-                  All
+                  all
                 </div>
               );
             }

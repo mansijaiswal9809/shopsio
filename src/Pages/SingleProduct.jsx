@@ -72,8 +72,8 @@ const SingleProduct = () => {
           <Stars ratings={ratings} /> {reviews} reviews{" "}
         </div>
         <div style={{ display: "flex", gap: "10px" }}>
-          {colors.map((color) => (
-            <div
+          {colors.map((color,ind) => (
+            <div key={ind}
               onClick={() => setCokor(color)}
               style={{
                 height: "15px",
