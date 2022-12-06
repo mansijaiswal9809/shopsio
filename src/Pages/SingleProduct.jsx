@@ -1,11 +1,14 @@
 import React from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Stars from "../component/Stars";
-// import { useParams } from 'react-router-dom'
+import { useCartContext } from "../context/cartContext";
 import { UseProductContext } from "../context/ProductContext";
+
 
 const SingleProduct = () => {
   const { singleProduct } = UseProductContext();
+  const {addToCart}= useCartContext()
   const {
     name,
     description,
@@ -21,6 +24,7 @@ const SingleProduct = () => {
   } = singleProduct;
   const [mainImage, setMainImage] = useState(images[0]);
   const [selectedColor, setCokor] = useState(colors[0]);
+  const [selectedSize, setSize] = useState(size[0]);
   const [count, setCount] = useState(1);
   // console.log(singleProduct);
   
@@ -57,10 +61,12 @@ const SingleProduct = () => {
         <div>
           {size.map((s, i) => (
             <button
+            onClick={()=>setSize(s)}
               style={{
                 border: "1px solid black",
                 padding: "0 5px",
                 borderRadius: "3px",
+                borderColor:`${selectedSize===s?"black":"grey"}`
               }}
               key={i}
             >
@@ -86,7 +92,7 @@ const SingleProduct = () => {
           ))}
         </div>
       <button disabled={count===1} onClick={()=>setCount(count-1)}>-</button>{count}<button disabled={count===stock} onClick={()=>setCount(count+1)}>+</button>
-      {stock && <button>Add to Cart</button>}
+      {stock && <Link to="/cart" onClick={()=>addToCart(id,count,selectedColor,selectedSize, singleProduct)}>Add to Cart</Link>}
       </div>
     </div>
   );

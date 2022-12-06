@@ -7,15 +7,17 @@ import { ChakraProvider } from "@chakra-ui/react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ProductProvider } from "./context/ProductContext";
 import { FilterProvider } from "./context/filterContext";
-// import { CategoryProductProvider } from "./context/categoryProductContext";
+import { CartProvider } from "./context/cartContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <ProductProvider>
     <FilterProvider>
-      <ChakraProvider>
-        <App />
-      </ChakraProvider>
+      <CartProvider>
+        <ChakraProvider>
+          <App />
+        </ChakraProvider>
+      </CartProvider>
     </FilterProvider>
   </ProductProvider>
 );
