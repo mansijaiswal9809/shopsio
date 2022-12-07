@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom'
 import { FaShoppingCart } from "react-icons/fa";
 import { BsSearch } from "react-icons/bs";
 import { UseProductContext } from '../context/ProductContext';
+import { useCartContext } from '../context/cartContext';
 const Navbar = () =>{ 
   const {dispatch, All}= UseProductContext()
-// console.log("jdhf",All)
+  const {cart}=useCartContext()
 
   return (
     <div style={{boxShadow: "rgba(132, 11, 132, 0.35) 0px 5px 15px", position:'sticky', top:0, zIndex:999, backgroundColor:'white'}}>
@@ -27,9 +28,10 @@ const Navbar = () =>{
           )} */}
         </div>
         <div style={{display:"flex", height:"45px", alignItems:"center", justifyContent:"space-between", border:"1px solid purple", padding:'0 20px', width:"300px", borderRadius:"30px"}}><input type="search" style={{outline:"none"}} placeholder="Search"/><BsSearch color='purple'/></div>
-        <div style={{display:"flex", paddingRight:"30px", alignItems:"center"}}>
+        <Link to="/cart" style={{display:"flex", paddingRight:"30px", alignItems:"center"}}>
         <FaShoppingCart size="30px" color='purple'/>
-        </div>
+        <span>{cart.length}</span>
+        </Link>
       </div>
     </div>
   )
