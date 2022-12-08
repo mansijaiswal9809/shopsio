@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/shopsio/static/css/main.5ccdd787.css",
+    "main.js": "/shopsio/static/js/main.ea67d87f.js",
+    "static/js/787.9c2229e0.chunk.js": "/shopsio/static/js/787.9c2229e0.chunk.js",
+    "index.html": "/shopsio/index.html",
+    "main.5ccdd787.css.map": "/shopsio/static/css/main.5ccdd787.css.map",
+    "main.ea67d87f.js.map": "/shopsio/static/js/main.ea67d87f.js.map",
+    "787.9c2229e0.chunk.js.map": "/shopsio/static/js/787.9c2229e0.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5ccdd787.css",
+    "static/js/main.ea67d87f.js"
+  ]
+}
