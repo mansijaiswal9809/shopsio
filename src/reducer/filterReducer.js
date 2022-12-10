@@ -4,7 +4,7 @@ const filterReducer = (state, action) => {
     let maxPrice = Math.max(...maxPriceArr);
     return {
       ...state,
-
+      // searchProducts:[],
       filter: { ...state.filter, maxPrice: maxPrice, price: maxPrice },
       filteredProduct: action.payload,
     };
@@ -14,6 +14,11 @@ const filterReducer = (state, action) => {
       ...state,
       sort: action.payload,
     };
+  }
+  if(action.type==="search"){
+    const {val, All}= action.payload
+    let searchProduct= All.filter((item)=>item.name.startsWith(val))
+    return {...state, searchProducts:searchProduct}
   }
   if (action.type === "sort_products") {
     const { sort, filteredProduct } = state;
@@ -37,14 +42,10 @@ const filterReducer = (state, action) => {
     return { ...state, filter: { ...state.filter, [name]: value } };
   }
   if (action.type === "filter") {
-    const { brand, color, price } = state.filter;
+    const { brand, price } = state.filter;
     let temp = [...action.payload];
     if (brand !== "all") {
       temp = temp.filter((item) => item.brand === brand);
-    }
-    if (color !== "all") {
-      temp = temp.filter((item) => item.colors.includes(color));
-      // console.log(temp)
     }
     temp = temp.filter((item) => item.price <= price);
     return { ...state, filteredProduct: temp };
@@ -56,7 +57,6 @@ const filterReducer = (state, action) => {
       ...state,
       filter: {
         brand: "all",
-        color: "all",
         minPrice: 0,
         maxPrice: maxPrice,
         price: maxPrice,

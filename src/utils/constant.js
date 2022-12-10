@@ -24,6 +24,5 @@ export const services = [
 
 export const uniqueValue=(arr,prop)=>{
 let newArr= arr.map((item)=>item[prop])
-newArr=newArr.flat()
 return ['all',...new Set(newArr)]
 }

@@ -7,11 +7,11 @@ import filterReducer from "../reducer/filterReducer";
 
 const filterContext = createContext();
 const initialState = {
+  searchProducts:[],
   filteredProduct: [],
   sort: "lowToHigh",
   filter: {
     brand: "all",
-    color: "all",
     minPrice: 0,
     maxPrice: 0,
     price: 0,
@@ -19,7 +19,7 @@ const initialState = {
 };
 export const FilterProvider = ({ children }) => {
   const [state, dispatch] = useReducer(filterReducer, initialState);
-  const { Category } = UseProductContext();
+  const { Category , All} = UseProductContext();
   //  console.log(Category)
 
   useEffect(() => {
@@ -34,6 +34,9 @@ export const FilterProvider = ({ children }) => {
   }, [Category]);
 
   // console.log(state.filteredProduct)
+  const search=(val)=>{
+    dispatch({type:"search", payload:{val,All}})
+  }
   useEffect(() => {
     dispatch({ type: "filter", payload: Category });
     dispatch({ type: "sort_products" });
@@ -44,6 +47,7 @@ export const FilterProvider = ({ children }) => {
     dispatch({ type: "sort", payload: value });
     // console.log(e.target.value)
   };
+
   const updateFilter = (e) => {
     let name = e.target.name;
     let value = e.target.value;
@@ -63,7 +67,7 @@ export const FilterProvider = ({ children }) => {
   };
   return (
     <filterContext.Provider
-      value={{ ...state, updateFilter, updateSort, clearFilters }}
+      value={{ ...state, updateFilter, updateSort, clearFilters, search }}
     >
       {children}
     </filterContext.Provider>

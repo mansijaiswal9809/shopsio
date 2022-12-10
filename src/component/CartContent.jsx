@@ -1,11 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useCartContext } from '../context/cartContext'
+import { useUserContext } from '../context/userContext'
 import CartItem from './CartItem'
 import CartTotal from './CartTotal'
 
 const CartContent = () => {
     const { cart, clearCart } = useCartContext()
+    const {myUser} =useUserContext()
   return (
     <div>
       {cart.map((item) => {
@@ -34,6 +36,14 @@ const CartContent = () => {
         >
           Clear shopping cart
         </button>
+        {myUser &&<Link to='/checkout' style={{
+          margin:"25px 0 25px 0",
+          padding:"5px 10px",
+          backgroundColor:"purple",
+          color:'white'
+        }}>
+          Buy Now
+        </Link>}
       </div>
     </div>
   )

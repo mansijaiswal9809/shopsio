@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import Stars from "../component/Stars";
 import { useCartContext } from "../context/cartContext";
 import { UseProductContext } from "../context/ProductContext";
 
@@ -75,7 +74,7 @@ const SingleProduct = () => {
           ))}
         </div>
         <div>
-          <Stars ratings={ratings} /> {reviews} reviews{" "}
+        {reviews} 
         </div>
         <div style={{ display: "flex", gap: "10px" }}>
           {colors.map((color,ind) => (

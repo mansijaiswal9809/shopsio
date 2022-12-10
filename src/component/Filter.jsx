@@ -2,17 +2,15 @@ import React from "react";
 import { useFilterContext } from "../context/filterContext";
 import { UseProductContext } from "../context/ProductContext";
 import { uniqueValue } from "../utils/constant";
-const Filter = ({minPrice,maxPrice,price}) => {
+const Filter = ({ minPrice, maxPrice, price }) => {
   const { Category } = UseProductContext();
-  const{sort, clearFilters,
-  updateFilter,
-  updateSort}= useFilterContext()
+
+  const { filter,sort, clearFilters, updateFilter, updateSort  } = useFilterContext();
   // console.log(Category)
 
   // console.log(minPrice, maxPrice, price)
 
   const brands = uniqueValue(Category, "brand");
-  const colors = uniqueValue(Category, "colors");
   //   console.log(colors);
   return (
     <div>
@@ -26,56 +24,24 @@ const Filter = ({minPrice,maxPrice,price}) => {
         {/* <button>all</button> */}
         <div>Select Your preferred brand</div>
         {brands.map((brand, ind) => (
-          <button key={ind} name="brand"  onClick={updateFilter}>
+          <button style={{borderBottom:`${filter.brand===brand?"4px solid purple":"none"}`}} key={ind} name="brand" onClick={updateFilter}>
             {brand}
           </button>
         ))}
       </div>
       <div>
-        <div>Select your fovorite Color</div>
-        <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-          {colors.map((color, ind) => {
-            if (color === "all") {
-              return (
-                <div
-                  name="color"
-                  onClick={updateFilter}
-                  key={ind}
-                  data-color="all"
-                >
-                  all
-                </div>
-              );
-            }
-            return (
-              <div
-                name="color"
-                onClick={updateFilter}
-                style={{
-                  height: "15px",
-                  width: "15px",
-                  borderRadius: "50%",
-                  backgroundColor: color,
-                }}
-                key={ind}
-                data-color={color}
-              ></div>
-            );
-          })}
-        </div>
-        <div>
-          <div>Price range</div>
-          <input onChange={updateFilter}
-            type="range"
-            min={minPrice}
-            max={maxPrice}
-            value={price}
-            name="price"
-          />
-        </div>
-        <div>
-          <button onClick={clearFilters}>Clear Filters</button>
-        </div>
+        <div>Price range</div>
+        <input
+          onChange={updateFilter}
+          type="range"
+          min={minPrice}
+          max={maxPrice}
+          value={price}
+          name="price"
+        />
+      </div>
+      <div>
+        <button onClick={clearFilters}>Clear Filters</button>
       </div>
     </div>
   );
