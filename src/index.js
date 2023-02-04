@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { ChakraProvider } from "@chakra-ui/react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ProductProvider } from "./context/ProductContext";
 import { FilterProvider } from "./context/filterContext";
@@ -23,9 +22,7 @@ root.render(
       <ProductProvider>
         <FilterProvider>
           <CartProvider>
-            <ChakraProvider>
-              <App />
-            </ChakraProvider>
+            <App />
           </CartProvider>
         </FilterProvider>
       </ProductProvider>

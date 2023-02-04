@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { FaShoppingCart, FaUserMinus, FaUserPlus } from "react-icons/fa";
+import {
+  FaShoppingCart,
+  FaTrash,
+  FaUserMinus,
+  FaUserPlus,
+} from "react-icons/fa";
+import { GrMenu } from "react-icons/gr";
+import { TiDelete } from "react-icons/ti";
 import { BsSearch } from "react-icons/bs";
 import { UseProductContext } from "../context/ProductContext";
 import { useCartContext } from "../context/cartContext";
@@ -8,36 +15,22 @@ import { useUserContext } from "../context/userContext";
 import { useFilterContext } from "../context/filterContext";
 const Navbar = () => {
   const { loginWithRedirect, logout, myUser } = useUserContext();
-  const {search}= useFilterContext()
+  const { search } = useFilterContext();
   const { dispatch, All } = UseProductContext();
   const { cart } = useCartContext();
-  const [val, setVal]=useState("")
-  const SearchText=()=>{
+  const [val, setVal] = useState("");
+  const [menu, setMenu] = useState(false);
+  const SearchText = () => {
     // console.log(val)
-    
-    if(val){
-      search(val)
+
+    if (val) {
+      search(val);
     }
-  }
+  };
 
   return (
-    <div
-      style={{
-        boxShadow: "rgba(132, 11, 132, 0.35) 0px 5px 15px",
-        position: "sticky",
-        top: 0,
-        zIndex: 999,
-        backgroundColor: "white",
-      }}
-    >
-      <div
-        className="nav-center"
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
+    <div className="sticky top-0 z-20 bg-white shadow-sm shadow-violet-900 px-1  md:px-10 flex justify-center items-center w-full ">
+      <div className="flex justify-between items-center w-11/12">
         <div className="nav-header">
           <Link to="/">
             <img
@@ -47,16 +40,25 @@ const Navbar = () => {
             />
           </Link>
         </div>
+        <div className="relative flex h-11 items-center justify-between border-2 border-solid border-purple-900 px-5 md:w-[300px] w-[250px] rounded-full">
+          <input
+            type="search"
+            className="outline-none"
+            placeholder="Search"
+            value={val}
+            onChange={(e) => setVal(e.target.value)}
+          />
+          <Link to="/searchproducts" className="absolute right-8">
+            <BsSearch color="purple" onClick={SearchText} />
+          </Link>
+        </div>
         <div
-          className="nav-links"
-          style={{
-            display: "flex",
-            gap: "30px",
-            alignItems: "center",
-            color: "purple",
-            fontWeight: "650",
-          }}
+          style={{ right: menu ? "0px" : "-500px" }}
+          className=" md:gap-3 lg:gap-7 items-center text-pur font-semibold flex flex-col fixed top-0  h-[100vh] md:w-max md:h-auto md:flex-row md:flex md:static bg-white gap-10 p-10 shadow-md md:shadow-none md:p-0 transition-all duration-500"
         >
+          <button className="md:hidden" onClick={() => setMenu(false)}>
+            <TiDelete size="30px" />
+          </button>
           <button onClick={() => dispatch({ type: "All", payload: All })}>
             <Link to="/products">All</Link>
           </button>
@@ -70,57 +72,46 @@ const Navbar = () => {
             <Link to="/products">Home & Decors</Link>
           </button>
           {myUser && (
-            <li>
+            <div>
               <Link to="/checkout">checkout</Link>
-            </li>
+            </div>
           )}
+          <Link to="/cart" className="flex  items-center">
+            <FaShoppingCart size="30px" color="purple" />
+            <span>{cart.length}</span>
+          </Link>
+          <div>
+            {!myUser ? (
+              <button
+                className="text-pur flex gap-2 items-center"
+                onClick={loginWithRedirect}
+              >
+                Login
+                <FaUserPlus />
+              </button>
+            ) : (
+              <button
+                className="text-pur flex gap-2 items-center"
+                onClick={() => {
+                  localStorage.removeItem("user");
+                  logout({ returnTo: window.location.origin });
+                }}
+              >
+                <FaUserMinus />
+                Logout
+              </button>
+            )}
+          </div>
         </div>
-        <div>
-          {!myUser ? (
-            <button onClick={loginWithRedirect}>Login<FaUserPlus /></button>
-          ) : (
-            <button
-              onClick={() => {
-                localStorage.removeItem("user");
-                logout({ returnTo: window.location.origin });
-              }}
-            >
-              <FaUserMinus />
-            </button>
-          )}
-        </div>
-        <div
-          style={{
-            display: "flex",
-            height: "45px",
-            alignItems: "center",
-            justifyContent: "space-between",
-            border: "1px solid purple",
-            padding: "0 20px",
-            width: "300px",
-            borderRadius: "30px",
+        <button
+          className="md:hidden flex"
+          onClick={() => {
+            console.log("d");
+            setMenu(true);
           }}
         >
-          <input
-            type="search"
-            style={{ outline: "none" }}
-            placeholder="Search"
-            value={val}
-            onChange={(e)=>setVal(e.target.value)}
-          />
-          <Link to="/searchproducts"><BsSearch color="purple"  onClick={SearchText}/></Link>
-        </div>
-        <Link
-          to="/cart"
-          style={{
-            display: "flex",
-            paddingRight: "30px",
-            alignItems: "center",
-          }}
-        >
-          <FaShoppingCart size="30px" color="purple" />
-          <span>{cart.length}</span>
-        </Link>
+          <GrMenu color="purple" size="25px" />
+        </button>
       </div>
     </div>
   );

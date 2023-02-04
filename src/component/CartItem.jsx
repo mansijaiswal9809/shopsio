@@ -7,7 +7,7 @@ import { UseProductContext } from "../context/ProductContext";
 const CartItem = ({ id, image, name, color, size, price, count, max }) => {
   // console.log(color)
   const { removeItem, toggleAmount } = useCartContext();
-  const {getSingleProduct}= UseProductContext()
+  const { getSingleProduct } = UseProductContext();
   const increase = () => {
     toggleAmount(id, "inc");
   };
@@ -15,44 +15,47 @@ const CartItem = ({ id, image, name, color, size, price, count, max }) => {
     toggleAmount(id, "dec");
   };
   return (
-    <div style={{display:"flex",alignItems:"center", gap:"30px", width:"100vw", justifyContent:"space-around"}}>
-      <div className="title" style={{display:"flex",alignItems:"center", gap:"30px"}}>
-        <Link to="/SingleProduct"><img src={image} alt={name} width="200px" onClick={()=>getSingleProduct(id)}/></Link>
-        <div style={{display:"flex",alignItems:"center", gap:"30px"}}>
-          <h5 className="name">Product:{name}</h5>
-          <div className="color" style={{display:"flex",alignItems:"center", gap:"10px"}}>
+    <div className="flex items-center gap-7 max-w-[100vw] w-[100vw] justify-around flex-wrap">
+      <div className="flex items-center gap-7">
+        <div>
+          <div className="min-w-40">
+            <img
+              src={image}
+              alt={name}
+              width="200px"
+              className="min-w-[160px]"
+              onClick={() => getSingleProduct(id)}
+            />
+          </div>
+        </div>
+        <div className="flex items-center gap-7 flex-wrap">
+          <div className="name">Product:{name}</div>
+          <div className="flex items-center gap-3">
             color :{" "}
             <div
+              className="rounded-full w-4 h-4"
               style={{
                 backgroundColor: color,
-                borderRadius: "50%",
-                width: "15px",
-                height: "15px",
               }}
             ></div>
           </div>
           <p>
             size : <span>{size}</span>
           </p>
-          <h5 className="price-small">Price: Rs {price}</h5>
+          <div>Price: Rs {price}</div>
         </div>
       </div>
       <div>
-
-      <button disabled={count === 1} onClick={decrease}>
-        -
-      </button>
-      Quantity:{count}
-      <button disabled={count === max} onClick={increase}>
-        +
-      </button>
+        <button disabled={count === 1} onClick={decrease}>
+          -
+        </button>
+        Quantity:{count}
+        <button disabled={count === max} onClick={increase}>
+          +
+        </button>
       </div>
       SubTotal: Rs {price * count}
-      <button
-        type="button"
-        className="remove-btn"
-        onClick={() => removeItem(id)}
-      >
+      <button type="button" onClick={() => removeItem(id)}>
         <FaTrash />
       </button>
     </div>

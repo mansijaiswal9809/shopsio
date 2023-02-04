@@ -15,33 +15,18 @@ const CartContent = () => {
       })}
       <hr />
       <CartTotal/>
-      <div style={{display:"flex", gap:"40px", justifyContent:"center"}}>
-        <Link to='/products' style={{
-          margin:"25px 0 25px 0",
-          padding:"5px 10px",
-          backgroundColor:"purple",
-          color:'white'
-        }}>
+      <div className="flex gap-3 sm:gap-10 justify-center" >
+        <Link to='/products'className="text-white my-6 py-1 px-2 bg-pur ">
           Continue shopping
         </Link>
         <button
           type='button'
           onClick={clearCart}
-          style={{
-            margin:"25px 0 25px 0",
-            padding:"5px 10px",
-            backgroundColor:"purple",
-            color:'white'
-          }}
-        >
+         className="my-6 text-white py-1 px-2 bg-pur">
           Clear shopping cart
         </button>
-        {myUser &&<Link to='/checkout' style={{
-          margin:"25px 0 25px 0",
-          padding:"5px 10px",
-          backgroundColor:"purple",
-          color:'white'
-        }}>
+        {myUser &&<Link to='/checkout' 
+        className="my-6 text-white py-1 px-2 bg-pur">
           Buy Now
         </Link>}
       </div>

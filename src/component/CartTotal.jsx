@@ -4,14 +4,14 @@ import { useCartContext } from '../context/cartContext'
 const CartTotal = () => {
     const { totalAmount, shippingFee } = useCartContext()
   return (
-    <div  style={{display:"flex", justifyContent:"flex-end",padding:"40px 0",color:"white", backgroundColor:"purple"}}>
+    <div className="flex justify-end py-10 text-white bg-pur w-full box-border pr-4 gap-3">
       
-   <div  style={{display:"flex", flexDirection:"column", alignItems:"flex-start", width:"200px"}}>
+   <div className="flex flex-col items-start">
       <div>Subtotal:</div>
       <div>Shipping Charges:</div>
       <div>Order Total:</div>
     </div>
-    <div  style={{display:"flex", flexDirection:"column", alignItems:"flex-start", width:"200px"}}>
+    <div className="flex flex-col items-start">
       <div>Rs {totalAmount}</div>
       <div>Rs {shippingFee}</div>
       <div>Rs {totalAmount+shippingFee}</div>

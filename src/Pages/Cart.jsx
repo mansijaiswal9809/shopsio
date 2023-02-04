@@ -7,7 +7,7 @@ const Cart = () => {
   const { cart } = useCartContext();
   if (cart.length === 0) {
     return (
-      <div>
+      <div className="p-10 text-xl">
         <div>Your Cart is Empty</div>
         <Link to="/products"> Get some items in the cart</Link>
       </div>

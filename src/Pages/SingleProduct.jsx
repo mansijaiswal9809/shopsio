@@ -28,17 +28,17 @@ const SingleProduct = () => {
   // console.log(singleProduct);
   
   return (
-    <div style={{ padding: "40px 180px", display: "flex", gap: "50px" }}>
-      <div className="images" style={{ width: "30vw" }}>
+    <div className="flex justify-center gap-10 flex-wrap">
+      <div className="images min-w-[300px]">
         <div>
           <img
             src={mainImage}
             alt={name}
             width="300px"
-            style={{ marginBottom: "10px" }}
+            className="mb-3"
           />
         </div>
-        <div className="small" style={{ display: "flex" }}>
+        <div className="flex">
           {images.map((image, ind) => (
             <div
               key={ind}
@@ -52,19 +52,17 @@ const SingleProduct = () => {
           ))}
         </div>
       </div>
-      <div style={{ width: "60vw" }}>
-        <h1>{name}</h1>
-        <h3>{description}</h3>
-        <h1>{brand}</h1>
-        <h1>Rs{price}</h1>
+      <div className="w-full md:w-[60vw] p-6">
+        <h3 className="font-bold">{name}</h3>
+        <h6>{description}</h6>
+        <h6>{brand}</h6>
+        <h5 className="font-bold">Rs{price}</h5>
         <div>
           {size.map((s, i) => (
             <button
             onClick={()=>setSize(s)}
+            className="border-2 border-solid border-black px-1 rounded-sm"
               style={{
-                border: "1px solid black",
-                padding: "0 5px",
-                borderRadius: "3px",
                 borderColor:`${selectedSize===s?"black":"grey"}`
               }}
               key={i}
@@ -74,16 +72,14 @@ const SingleProduct = () => {
           ))}
         </div>
         <div>
-        {reviews} 
+        {reviews} Reviews
         </div>
-        <div style={{ display: "flex", gap: "10px" }}>
+        <div lassName="flex gap-3">
           {colors.map((color,ind) => (
             <div key={ind}
+            className="h-4 w-4 rounded-full"
               onClick={() => setCokor(color)}
               style={{
-                height: "15px",
-                width: "15px",
-                borderRadius: "50%",
                 backgroundColor: color,
                 opacity: `${selectedColor === color ? "1" : "0.3"}`,
               }}
@@ -91,7 +87,8 @@ const SingleProduct = () => {
           ))}
         </div>
       <button disabled={count===1} onClick={()=>setCount(count-1)}>-</button>{count}<button disabled={count===stock} onClick={()=>setCount(count+1)}>+</button>
-      {stock && <Link to="/cart" onClick={()=>addToCart(id,count,selectedColor,selectedSize, singleProduct)}>Add to Cart</Link>}
+      <br />
+      {stock && <Link to="/cart" className="px-2 py-1 bg-pur rounded-sm text-white" onClick={()=>addToCart(id,count,selectedColor,selectedSize, singleProduct)}>Add to Cart</Link>}
       </div>
     </div>
   );
