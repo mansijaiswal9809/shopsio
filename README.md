@@ -19,7 +19,7 @@
 * Product Page
 <img src="https://drive.google.com/file/d/1nuirmbFTGZITt026z1So1KUzcT_qdIqK/view?usp=share_link" alt="PRODUCTS"/>
 
-* Single Product {age
+* Single Product Page
 <img src="https://drive.google.com/file/d/1nuirmbFTGZITt026z1So1KUzcT_qdIqK/view?usp=share_link" alt="PRODUCT"/>
 
 * Cart Page
